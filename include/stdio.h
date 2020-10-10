@@ -1,6 +1,8 @@
 #ifndef W32_STDIO_H
 #define W32_STDIO_H
 
+#include <ntdll/stdio.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

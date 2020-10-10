@@ -1,6 +1,8 @@
 #ifndef W32_STDLIB_H
 #define W32_STDLIB_H
+
 #include <stddef.h>
+#include <ntdll/stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {

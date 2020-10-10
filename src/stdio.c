@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ntdll/stdio.h>
 #include <kernel32/console.h>
 int printf(const char* format, ...){
 	uint32_t ret;
