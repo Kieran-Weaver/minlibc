@@ -1,5 +1,5 @@
 CC=x86_64-w64-mingw32-gcc
-CFLAGS=-Og -g -ffreestanding -I include -mconsole -fno-stack-check -fno-stack-protector -mno-stack-arg-probe
+CFLAGS=-Os -ffreestanding -I include -mconsole -fno-stack-check -fno-stack-protector -mno-stack-arg-probe
 LDFLAGS=-ffreestanding -static -mconsole -nostdlib -lntdll -lkernel32 -lntdllcrt
 LIBC_SRCS=$(shell find src -path "*.c")
 LIBC_OBJS=$(patsubst %.c, %.o, $(LIBC_SRCS))

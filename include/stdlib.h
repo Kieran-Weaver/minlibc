@@ -8,10 +8,16 @@
 extern "C" {
 #endif
 
+#ifndef RAND_MAX
+#define RAND_MAX 0xFFFFFFFFu
+#endif
+
 void* malloc(size_t sz);
 void* calloc(size_t sz);
 void* realloc(void *ptr, size_t sz);
 void free(void *ptr);
+void srand(unsigned int seed);
+unsigned int rand();
 
 #ifdef __cplusplus
 }
