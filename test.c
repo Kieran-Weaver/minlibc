@@ -12,5 +12,13 @@ int mainCRTStartup(void){
 	printf("High %u\n", ct >> 32);
 	Sleep(10);
 	printf("CLOCK %u ms\n", (clock() - ct) / 10000);
+	
+	time_t st = time(NULL);
+	
+	struct tm data;
+	data = *(gmtime(&st));
+	
+	mktime(&data);
+	printf("%s%s", asctime(&data), ctime(&st));
 	return 0;
 }

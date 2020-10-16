@@ -1,5 +1,5 @@
-#ifndef NTDLL_CTYPES_H
-#define NTDLL_CTYPES_H
+#ifndef NTDLL_CTYPE_H
+#define NTDLL_CTYPE_H
 
 #ifdef __cplusplus
 extern "C" {
