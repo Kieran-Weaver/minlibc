@@ -9,7 +9,6 @@
 extern "C" {
 #endif
 
-typedef uint16_t wchar_t;
 typedef uint16_t wint_t;
 
 __declspec(dllimport) wchar_t* _itow(int value, wchar_t* buffer, int radix);
@@ -50,7 +49,6 @@ __declspec(dllimport) wchar_t* wcsrchr(const wchar_t*, wchar_t);
 __declspec(dllimport) size_t wcsspn(const wchar_t*, const wchar_t*);
 __declspec(dllimport) wchar_t* wcsstr(const wchar_t*, const wchar_t*);
 __declspec(dllimport) long wcstol(const wchar_t*, wchar_t**, int base);
-__declspec(dllimport) size_t wcstombs(char_t*, const wchar_t*, size_t);
 __declspec(dllimport) unsigned long wcstoul(const wchar_t*, wchar_t**, int base);
 
 #ifdef __cplusplus

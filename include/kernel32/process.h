@@ -30,8 +30,29 @@ typedef struct {
 	unsigned long long OtherTransferCount;
 } io_counters_t;
 
+typedef struct _STARTUPINFOA {
+	uint32_t  cb;
+	char*  lpReserved;
+	char*  lpDesktop;
+	char*  lpTitle;
+	uint32_t  dwX;
+	uint32_t  dwY;
+	uint32_t  dwXSize;
+	uint32_t  dwYSize;
+	uint32_t  dwXCountChars;
+	uint32_t  dwYCountChars;
+	uint32_t  dwFillAttribute;
+	uint32_t  dwFlags;
+	uint16_t   wShowWindow;
+	uint16_t   cbReserved2;
+	char* lpReserved2;
+	void* hStdInput;
+	void* hStdOutput;
+	void* hStdError;
+} startup_info_t;
+
 __declspec(dllimport) int CreateProcessA(const char*, char*, security_attributes_t*,
-security_attributes_t*, int, uint32_t, void*, const char*, void*, process_info_t*);
+security_attributes_t*, int, uint32_t, void*, const char*, startup_info_t*, process_info_t*);
 __declspec(dllimport) void ExitProcess(unsigned int exitcode);
 __declspec(dllimport) void * GetCurrentProcess();
 __declspec(dllimport) uint32_t GetCurrentProcessId();

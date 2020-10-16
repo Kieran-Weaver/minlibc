@@ -20,5 +20,7 @@ int mainCRTStartup(void){
 	
 	mktime(&data);
 	printf("%s%s", asctime(&data), ctime(&st));
+	
+	system("notepad.exe");
 	return 0;
 }

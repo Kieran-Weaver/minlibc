@@ -21,6 +21,7 @@ __declspec(dllimport) unsigned long strtoul(const char*, char**, int);
 __declspec(dllimport) void* _lfind(const void*, const void*, unsigned int*, unsigned int, int (__cdecl *compare)(const void*, const void*));
 __declspec(dllimport) void* bsearch(const void*, const void*, size_t, size_t, int (__cdecl *compare)(const void*, const void*));
 __declspec(dllimport) size_t mbstowcs(wchar_t*, const char*, size_t);
+__declspec(dllimport) size_t wcstombs(char*, const wchar_t*, size_t);
 __declspec(dllimport) void qsort(void*, size_t, size_t, int (__cdecl *compare)(const void*, const void*));
 
 #ifdef __cplusplus
