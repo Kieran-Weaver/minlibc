@@ -3,53 +3,11 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <kernel32/types.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct {
-	uint32_t nLength;
-	void* lpSecurityDescriptor;
-	int bInheritHandle;
-} security_attributes_t;
-
-typedef struct {
-	void* hProcess;
-	void* hThread;
-	uint32_t dwProcessId;
-	uint32_t dwThreadId;
-} process_info_t;
-
-typedef struct {
-	unsigned long long ReadOperationCount;
-	unsigned long long WriteOperationCount;
-	unsigned long long OtherOperationCount;
-	unsigned long long ReadTransferCount;
-	unsigned long long WriteTransferCount;
-	unsigned long long OtherTransferCount;
-} io_counters_t;
-
-typedef struct _STARTUPINFOA {
-	uint32_t  cb;
-	char*  lpReserved;
-	char*  lpDesktop;
-	char*  lpTitle;
-	uint32_t  dwX;
-	uint32_t  dwY;
-	uint32_t  dwXSize;
-	uint32_t  dwYSize;
-	uint32_t  dwXCountChars;
-	uint32_t  dwYCountChars;
-	uint32_t  dwFillAttribute;
-	uint32_t  dwFlags;
-	uint16_t   wShowWindow;
-	uint16_t   cbReserved2;
-	char* lpReserved2;
-	void* hStdInput;
-	void* hStdOutput;
-	void* hStdError;
-} startup_info_t;
 
 __declspec(dllimport) int CreateProcessA(const char*, char*, security_attributes_t*,
 security_attributes_t*, int, uint32_t, void*, const char*, startup_info_t*, process_info_t*);

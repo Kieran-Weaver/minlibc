@@ -3,38 +3,11 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <kernel32/types.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct {
-  void* lpData;
-  uint32_t cbData;
-  uint8_t  cbOverhead;
-  uint8_t  iRegionIndex;
-  uint16_t  wFlags;
-  union {
-    struct {
-      void* hMem;
-      uint32_t  dwReserved[3];
-    } Block;
-    struct {
-      uint32_t  dwCommittedSize;
-      uint32_t  dwUnCommittedSize;
-      void* lpFirstBlock;
-      void* lpLastBlock;
-    } Region;
-  } DUMMYUNIONNAME;
-} process_heap_entry_t;
-
-typedef struct {
-  uint32_t  cb;
-  size_t cbAllocated;
-  size_t cbCommitted;
-  size_t cbReserved;
-  size_t cbMaxReserve;
-} heap_summary_t;
 
 __declspec(dllimport) void* GetProcessHeap();
 __declspec(dllimport) uint32_t GetProcessHeaps(uint32_t n, void** heaps);
