@@ -1,12 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <kernel32.h>
+#include <ntdll.h>
 #include <kernel32/process.h>
+#include <kernel32/console.h>
 __declspec(dllimport) void Sleep(unsigned int);
 void exitfunc(void){
-	printf("%s\n", "Bruh moment");
+	printf("%s\n", "atexit() test");
 }
 int mainCRTStartup(void){
+	stdin = GetStdHandle(STD_INPUT_HANDLE);
+	stdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	stderr = GetStdHandle(STD_ERROR_HANDLE);
 	atexit(exitfunc);
 	srand(RAND_MAX);
 	printf("%s\n", "Hello World");
