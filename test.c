@@ -3,7 +3,11 @@
 #include <time.h>
 #include <kernel32/process.h>
 __declspec(dllimport) void Sleep(unsigned int);
+void exitfunc(void){
+	printf("%s\n", "Bruh moment");
+}
 int mainCRTStartup(void){
+	atexit(exitfunc);
 	srand(RAND_MAX);
 	printf("%s\n", "Hello World");
 	printf("%d\n", rand());
@@ -22,5 +26,6 @@ int mainCRTStartup(void){
 	printf("%s%s", asctime(&data), ctime(&st));
 	
 	system("notepad.exe");
+	exit(0);
 	return 0;
 }

@@ -24,7 +24,7 @@ typedef struct {
 } ldiv_t;
 
 void* malloc(size_t sz);
-void* calloc(size_t sz);
+void* calloc(size_t num, size_t sz);
 void* realloc(void *ptr, size_t sz);
 void free(void *ptr);
 void srand(unsigned int seed);

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <util/list.h>
 #include <ntdll/rtlcrt.h>
 #include <kernel32/environ.h>
 #include <kernel32/heap.h>
@@ -13,23 +14,17 @@
 #endif
 static unsigned long rand_state = 0;
 static char envbuf[ENVBUFLEN] = {};
-typedef void (*_atexit_func)(void);
-typedef struct _exit_val{
-	int num_funcs;
-	struct _exit_val* next;
-	_atexit_func funcs[_NUM_EXIT];
-} _exit_t;
-
-static _exit_t exit_state = {0, NULL, {}};
+typedef void (*_atexit_cb)(void);
+static _list_t exit_state = {0, NULL, {}};
 
 void* malloc(size_t sz){
 	void* heap = GetProcessHeap();
 	return HeapAlloc(heap, 0, sz);
 }
 
-void* calloc(size_t sz){
+void* calloc(size_t num, size_t sz){
 	void* heap = GetProcessHeap();
-	return HeapAlloc(heap, 8, sz);
+	return HeapAlloc(heap, 8, num*sz);
 }
 
 void* realloc(void *ptr, size_t sz){
@@ -54,31 +49,18 @@ void abort(void){
 	TerminateProcess(GetCurrentProcess(), 1);
 }
 
-int atexit(_atexit_func func){
-	_exit_t * curr = &exit_state;
-	while (curr->next != NULL){
-		curr = curr->next;
-	}
-	curr->funcs[curr->num_funcs] = func;
-	curr->num_funcs++;
-	if (curr->num_funcs == _NUM_EXIT){
-		curr->next = calloc(sizeof(_exit_t));
-	}
+int atexit(_atexit_cb func){
+	_LIST_PUSH(&exit_state, func);
 }
 
-static void call_exitfuncs(_exit_t* curr){
-	int i;
-	for (i = 0; i < curr->num_funcs; i++){
-		curr->funcs[i]();
-	}
-	if (curr->next != NULL){
-		call_exitfuncs(curr->next);
-		free(curr->next);
-	}
+static void call_exitfunc(void* curr){
+	_atexit_cb func = *(_atexit_cb*)(curr);
+	func();
 }
 
 void exit(int code){
-	call_exitfuncs(&exit_state);
+	list_backiter(&exit_state, call_exitfunc);
+	list_free(&exit_state);
 	ExitProcess(code);
 }
 
