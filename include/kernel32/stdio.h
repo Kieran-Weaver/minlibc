@@ -25,6 +25,10 @@ __declspec(dllimport) int WriteFile(void*, const void*, uint32_t, uint32_t*, voi
 __declspec(dllimport) int WriteFileEx(void*, const void*, uint32_t, overlapped_t*, overlapped_completion_routine_t);
 __declspec(dllimport) int WriteFileGather(void*, file_segment_element_t*, uint32_t, uint32_t*, overlapped_t*);
 
+#ifndef INVALID_SET_FILE_POINTER
+#define INVALID_SET_FILE_POINTER ((uint32_t)-1)
+#endif
+
 #ifdef __cplusplus
 }
 #endif

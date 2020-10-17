@@ -41,6 +41,7 @@ int list_push(_list_t* _list, const void* data, unsigned int size);
 int list_pop(_list_t* _list, void* data, unsigned int size);
 int list_set(_list_t* _list, unsigned int index, const void* data, unsigned int size);
 int list_get(_list_t* _list, unsigned int index, void* data, unsigned int size);
+int list_len(_list_t* _list, int* ret);
 int list_iter(_list_t* _list, _list_cb func);
 int list_backiter(_list_t* _list, _list_cb func);
 int list_free(_list_t* _list);

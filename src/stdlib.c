@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <util/list.h>
 #include <ntdll/rtlcrt.h>
 #include <kernel32/environ.h>
@@ -61,7 +62,7 @@ static void call_exitfunc(void* curr){
 void exit(int code){
 	list_backiter(&exit_state, call_exitfunc);
 	list_free(&exit_state);
-	ExitProcess(code);
+	_exit(code);
 }
 
 char *getenv(const char* val){

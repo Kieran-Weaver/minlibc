@@ -61,6 +61,16 @@ int list_get(_list_t* _list, unsigned int index, void* data, unsigned int size){
 	return 1;
 }
 
+int list_len(_list_t* _list, int* ret){
+	int i = 0;
+	while (_list){
+		i += _list->count;
+		_list = _list->next;
+	}
+	*ret = i;
+	return 0;
+}
+
 int list_iter(_list_t* _list, _list_cb func){
 	int i = 0;
 	if (_list){

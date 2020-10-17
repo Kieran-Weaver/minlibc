@@ -1,18 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <time.h>
-#include <kernel32.h>
-#include <ntdll.h>
 #include <kernel32/process.h>
 #include <kernel32/console.h>
 __declspec(dllimport) void Sleep(unsigned int);
+typedef struct _FILE{
+	void* handle;
+	int8_t feof;
+	int8_t ferror;
+	char back;
+} FILE;
 void exitfunc(void){
 	printf("%s\n", "atexit() test");
 }
 int mainCRTStartup(void){
-	stdin = GetStdHandle(STD_INPUT_HANDLE);
-	stdout = GetStdHandle(STD_OUTPUT_HANDLE);
-	stderr = GetStdHandle(STD_ERROR_HANDLE);
+	_init();
 	atexit(exitfunc);
 	srand(RAND_MAX);
 	printf("%s\n", "Hello World");
@@ -30,6 +33,11 @@ int mainCRTStartup(void){
 	
 	mktime(&data);
 	printf("%s%s", asctime(&data), ctime(&st));
+	
+	FILE* ofile = fopen("3.txt", "w+");
+	fprintf(ofile, "%s\n", "file test");
+	printf("%s\n", "Written");
+	fclose(ofile);
 	
 	system("notepad.exe");
 	exit(0);

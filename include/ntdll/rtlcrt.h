@@ -18,8 +18,6 @@ __declspec(dllimport) void RtlMoveMemory(void*, const void*, size_t);
 __declspec(dllimport) void RtlFillMemory(void*, size_t, int);
 __declspec(dllimport) void RtlFillMemoryUlong(void*, size_t, unsigned long);
 __declspec(dllimport) uint32_t RtlComputeCrc32(uint32_t, const char*, int);
-__declspec(dllimport) unsigned long RtlUlongByteSwap(unsigned long);
-__declspec(dllimport) unsigned long long RtlUlonglongByteSwap(unsigned long long);
 __declspec(dllimport) int RtlCharToInteger(const char*, unsigned long, unsigned long*);
 __declspec(dllimport) int RtlIntegerToChar(unsigned long, unsigned long, unsigned long, char*);
 
