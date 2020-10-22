@@ -20,6 +20,7 @@ static FILE _stderr = {};
 FILE* stdin = &_stdin;
 FILE* stdout = &_stdout;
 FILE* stderr = &_stderr;
+static char tmpbuf[64] = {};
 
 static int __fmodeflags(const char *mode)
 {
@@ -53,6 +54,16 @@ int printf(const char* format, ...){
 	return vprintf(format, ap);
 }
 
+int snprintf(char* s, size_t maxlen, const char* format, ...){
+	va_list ap;
+	va_start(ap, format);
+	return vsnprintf(s, maxlen, format, ap);
+}
+
+int vsnprintf(char *s,size_t maxlen, const char* format, va_list ap){
+	return _vsnprintf(s, maxlen, format, ap);
+}
+
 int vprintf(const char* format, va_list ap){
 	return vfprintf(stdout, format, ap);
 }
@@ -65,7 +76,6 @@ int fprintf(FILE* st, const char* format, ...){
 
 int vfprintf(FILE* st, const char* format, va_list ap){
 	uint32_t ret;
-	char tmpbuf[64] = {};
 	char *abuf = tmpbuf;
 	int size = _vsnprintf(abuf, 64, format, ap);
 
@@ -208,6 +218,10 @@ void rewind(FILE* stream){
 	fseek(stream, 0, SEEK_SET);
 }
 
+int fseeko(FILE* stream, int64_t offset, int origin){
+	return fseek(stream, offset, origin);
+}
+
 int fseek(FILE* stream, long offset, int origin){
 	stream->back = 0;
 	uint32_t off_low = offset & 0xFFFFFFFF;
@@ -221,6 +235,10 @@ long int ftell(FILE* stream){
 	uint32_t off_low = SetFilePointer(stream->handle, 0, &off_high, SEEK_CUR);
 	uint64_t off = (uint64_t)(off_high) << 32 + off_low;
 	return off;
+}
+
+int64_t ftello(FILE* stream){
+	return ftell(stream);
 }
 
 int fgetpos (FILE * stream, fpos_t* pos){
@@ -251,4 +269,8 @@ int fclose(FILE* stream){
 		free(stream);
 	}
 	return 0;
+}
+
+int feof(FILE* stream){
+	return (stream->feof);
 }

@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 char * strtok(char * str, const char* delim);
+char * strdup(const char * str);
 
 #ifdef __cplusplus
 }
